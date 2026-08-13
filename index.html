@@ -318,6 +318,44 @@
     .about-list{grid-template-columns:1fr;}
     button, a{cursor:pointer;}
   }
+
+/* ===== PREMIUM 3D EXPERIENCE UPGRADE ===== */
+:root{--glass:rgba(18,16,13,.62);}
+.hero::before{content:"";position:absolute;inset:-20%;z-index:1;background:radial-gradient(circle at 72% 30%,rgba(201,168,76,.18),transparent 22%),radial-gradient(circle at 18% 80%,rgba(70,110,90,.13),transparent 28%);animation:aurora 12s ease-in-out infinite alternate;pointer-events:none}
+@keyframes aurora{to{transform:translate3d(-3%,2%,0) scale(1.06);filter:hue-rotate(8deg)}}
+.hero-content{perspective:1400px}
+.hero-stat-card{transform-style:preserve-3d;box-shadow:0 35px 80px rgba(0,0,0,.35)}
+.hero-stat-card>*{transform:translateZ(18px)}
+.p-card{will-change:transform;perspective:900px}
+.p-card::after{content:"";position:absolute;inset:0;background:linear-gradient(115deg,transparent 20%,rgba(255,255,255,.09) 45%,transparent 70%);transform:translateX(-140%);transition:transform .8s ease;pointer-events:none;z-index:4}
+.p-card:hover::after{transform:translateX(140%)}
+.img-wrap::after{content:"";position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,255,255,.08),transparent 40%,rgba(0,0,0,.25));pointer-events:none}
+.showroom-3d{padding:120px 8vw;background:radial-gradient(circle at center,#241e14 0,#15120f 45%,#0f0f0e 100%);overflow:hidden;position:relative;border-block:1px solid var(--line)}
+.showroom-stage{max-width:1180px;margin:65px auto 0;min-height:600px;position:relative;perspective:1600px;display:grid;place-items:center}
+.showroom-floor{position:absolute;width:1100px;height:720px;background:linear-gradient(rgba(201,168,76,.08) 1px,transparent 1px),linear-gradient(90deg,rgba(201,168,76,.08) 1px,transparent 1px);background-size:50px 50px;transform:rotateX(68deg) translateY(160px);mask-image:linear-gradient(to bottom,rgba(0,0,0,.9),transparent 75%);opacity:.8}
+.material-orbit{width:min(72vw,760px);height:430px;position:relative;transform-style:preserve-3d;animation:orbitFloat 16s ease-in-out infinite alternate}
+@keyframes orbitFloat{0%{transform:rotateX(5deg) rotateY(-7deg)}100%{transform:rotateX(-3deg) rotateY(7deg)}}
+.material-panel{position:absolute;width:250px;height:340px;border:1px solid rgba(236,205,124,.55);background:#191713 center/cover no-repeat;box-shadow:0 35px 70px rgba(0,0,0,.5),inset 0 0 0 1px rgba(255,255,255,.05);border-radius:4px;overflow:hidden;transform-style:preserve-3d}
+.material-panel::before{content:"";position:absolute;inset:0;background:linear-gradient(115deg,rgba(255,255,255,.2),transparent 35%,rgba(0,0,0,.35));mix-blend-mode:screen}
+.material-panel span{position:absolute;bottom:0;left:0;right:0;padding:16px 18px;background:linear-gradient(transparent,rgba(0,0,0,.85));font:600 12px Poppins;letter-spacing:2px;text-transform:uppercase;transform:translateZ(25px)}
+.panel-a{left:3%;top:65px;transform:rotateY(34deg) rotateZ(-5deg) translateZ(30px)}
+.panel-b{left:calc(50% - 125px);top:0;transform:translateZ(80px)}
+.panel-c{right:3%;top:65px;transform:rotateY(-34deg) rotateZ(5deg) translateZ(30px)}
+.orbit-core{position:absolute;width:135px;height:135px;border-radius:50%;left:calc(50% - 67px);top:145px;background:radial-gradient(circle at 32% 28%,#f6dda0,#c9a84c 35%,#5b4318 70%);box-shadow:0 0 70px rgba(201,168,76,.35);display:grid;place-items:center;transform:translateZ(120px);font:700 10px Poppins;letter-spacing:2px;text-align:center;color:#15110a}
+.floating-chip{position:absolute;padding:10px 15px;background:var(--glass);backdrop-filter:blur(12px);border:1px solid var(--line);font:500 11px Poppins;letter-spacing:1.5px;text-transform:uppercase;color:var(--gold);animation:chipFloat 5s ease-in-out infinite alternate}
+.chip-1{left:4%;top:15%}.chip-2{right:4%;bottom:18%;animation-delay:-2s}
+@keyframes chipFloat{to{transform:translateY(-18px) rotate(2deg)}}
+@media(max-width:760px){.showroom-3d{padding:90px 6vw}.showroom-stage{min-height:500px}.material-orbit{width:100%;height:400px}.material-panel{width:160px;height:260px}.panel-a{left:-5%;top:75px}.panel-b{left:calc(50% - 80px)}.panel-c{right:-5%;top:75px}.showroom-floor{width:650px}}
+
+</style>
+
+<style id="premium-v2">
+:root{--neon:#f4cf75}
+.hero::before{content:"";position:absolute;inset:-30%;z-index:1;background:radial-gradient(circle at 25% 30%,rgba(201,168,76,.16),transparent 28%),radial-gradient(circle at 78% 60%,rgba(78,110,150,.14),transparent 24%);animation:aurora 12s ease-in-out infinite alternate;pointer-events:none}@keyframes aurora{to{transform:translate3d(4%,-3%,0) scale(1.08)}}
+.p-card{will-change:transform}.p-card::before{content:"";position:absolute;inset:-120%;background:linear-gradient(115deg,transparent 45%,rgba(255,255,255,.16) 50%,transparent 55%);transform:translateX(-60%) rotate(15deg);transition:transform .9s;z-index:4;pointer-events:none}.p-card:hover::before{transform:translateX(60%) rotate(15deg)}
+.showcase-3d{padding:140px 6vw;background:radial-gradient(circle at 50% 0,#211a0d,transparent 42%),#0b0b0a;overflow:hidden;position:relative}.showcase-stage{height:650px;max-width:1250px;margin:60px auto 0;position:relative;perspective:1600px;transform-style:preserve-3d}.slab{position:absolute;width:min(28vw,360px);aspect-ratio:3/4;border:1px solid rgba(201,168,76,.5);box-shadow:0 45px 90px rgba(0,0,0,.6),inset 0 0 30px rgba(255,255,255,.08);overflow:hidden;transform-style:preserve-3d;transition:transform .35s ease;will-change:transform}.slab img{width:100%;height:100%;object-fit:cover}.slab:after{content:"";position:absolute;inset:0;background:linear-gradient(130deg,rgba(255,255,255,.2),transparent 22%,transparent 70%,rgba(0,0,0,.4))}.slab b{position:absolute;z-index:3;bottom:18px;left:18px;font-family:Poppins;font-size:13px;letter-spacing:2px;background:rgba(5,5,5,.6);backdrop-filter:blur(10px);padding:10px 14px;color:#f5f2ea}.s1{left:6%;top:70px;transform:rotateY(28deg) rotateZ(-5deg);animation:float1 6s ease-in-out infinite}.s2{left:36%;top:0;transform:translateZ(80px);animation:float2 7s ease-in-out infinite}.s3{right:5%;top:85px;transform:rotateY(-28deg) rotateZ(5deg);animation:float3 6.5s ease-in-out infinite}@keyframes float1{50%{transform:rotateY(28deg) rotateZ(-5deg) translateY(-28px)}}@keyframes float2{50%{transform:translateZ(80px) translateY(-35px) rotateZ(2deg)}}@keyframes float3{50%{transform:rotateY(-28deg) rotateZ(5deg) translateY(-30px)}}
+.mega-gallery{padding:120px 6vw;background:#11100e}.mega-grid{columns:4 240px;column-gap:18px;margin-top:55px}.mega-grid figure{margin:0 0 18px;break-inside:avoid;position:relative;overflow:hidden;border:1px solid var(--line);background:#181713}.mega-grid img{width:100%;display:block;transition:transform .7s cubic-bezier(.2,.8,.2,1),filter .5s}.mega-grid figure:hover img{transform:scale(1.1);filter:saturate(1.2)}.mega-grid figcaption{position:absolute;inset:auto 0 0;padding:45px 18px 16px;background:linear-gradient(transparent,rgba(0,0,0,.9));font:600 12px Poppins;letter-spacing:2px;text-transform:uppercase;transform:translateY(100%);transition:.45s}.mega-grid figure:hover figcaption{transform:translateY(0)}
+@media(max-width:780px){.showcase-stage{height:1050px}.slab{width:72vw}.s1{left:2%;top:280px}.s2{left:14%;top:0}.s3{right:2%;top:570px}.mega-grid{columns:2 150px}}
 </style>
 </head>
 <body>
@@ -650,6 +688,27 @@
   </div>
 </section>
 
+
+<!-- ===== IMMERSIVE 3D MATERIAL SHOWROOM ===== -->
+<section class="showroom-3d" id="experience">
+  <div class="reveal" style="text-align:center">
+    <div class="eyebrow" style="justify-content:center">Immersive Collection</div>
+    <h2 class="section-title" style="margin:0 auto">Step Into Our <span class="serif gold">Material World</span></h2>
+    <p class="section-sub" style="margin:16px auto 0">A cinematic 3D presentation inspired by the Polygranite collection—move your cursor to explore depth.</p>
+  </div>
+  <div class="showroom-stage" id="showroom-stage">
+    <div class="showroom-floor"></div>
+    <div class="floating-chip chip-1">Luxury Surface</div>
+    <div class="floating-chip chip-2">Premium Finish</div>
+    <div class="material-orbit" id="material-orbit">
+      <div class="material-panel panel-a" style="background-image:url('https://polygraniteindia.com/wp-content/uploads/2022/12/pearl-white-1024x788.png')"><span>Pearl White</span></div>
+      <div class="material-panel panel-b" style="background-image:url('https://polygraniteindia.com/wp-content/uploads/2022/11/Untitled-design-54-1024x791.png')"><span>Jacobean Wood</span></div>
+      <div class="material-panel panel-c" style="background-image:url('https://polygraniteindia.com/wp-content/uploads/2022/11/image-017-scaled-e1670918168238-1024x645.jpg')"><span>Imperial Blue</span></div>
+      <div class="orbit-core">B.S<br>ENTERPRISES</div>
+    </div>
+  </div>
+</section>
+
 <!-- ===== GALLERY ===== -->
 <section class="section" id="gallery">
   <div class="reveal">
@@ -970,6 +1029,28 @@ let testIndex = 0;
 function showTest(i){ slides.forEach(s=>s.classList.remove('active')); dots.forEach(d=>d.classList.remove('active')); slides[i].classList.add('active'); dots[i].classList.add('active'); testIndex=i; }
 dots.forEach(d=>d.addEventListener('click', ()=>showTest(+d.dataset.i)));
 setInterval(()=>showTest((testIndex+1)%slides.length), 5500);
+
+/* ===== IMMERSIVE 3D MATERIAL INTERACTION ===== */
+const stage=document.getElementById('showroom-stage'), orbit=document.getElementById('material-orbit');
+if(stage&&orbit&&matchMedia('(hover:hover)').matches){
+  stage.addEventListener('mousemove',e=>{
+    const r=stage.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;
+    orbit.style.transition='transform .18s ease-out';
+    orbit.style.transform=`rotateX(${5-y*12}deg) rotateY(${-7+x*20}deg)`;
+  });
+  stage.addEventListener('mouseleave',()=>{orbit.style.transition='transform .7s ease';orbit.style.transform='rotateX(5deg) rotateY(-7deg)'});
+}
+/* GPU-friendly 3D tilt for product cards */
+document.querySelectorAll('.p-card.tilt').forEach(card=>{
+ if(!matchMedia('(hover:hover)').matches)return;
+ card.addEventListener('mousemove',e=>{const r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;card.style.transform=`perspective(900px) rotateX(${-y*7}deg) rotateY(${x*8}deg) translateY(-6px)`});
+ card.addEventListener('mouseleave',()=>card.style.transform='');
+});
+
 </script>
-</body>
+
+<section class="showcase-3d" id="experience"><div style="text-align:center" class="reveal"><div class="eyebrow" style="justify-content:center">3D MATERIAL EXPERIENCE</div><h2 class="section-title" style="margin:auto">Touch the Future of <span class="serif gold">Interiors</span></h2><p class="section-sub" style="margin:18px auto 0">Premium surfaces presented like a luxury digital showroom.</p></div><div class="showcase-stage" id="showcase-stage"><article class="slab s1"><img src="https://polygraniteindia.com/wp-content/uploads/2022/12/pearl-white-1024x788.png" alt="Pearl White"><b>PEARL WHITE</b></article><article class="slab s2"><img src="https://polygraniteindia.com/wp-content/uploads/2022/12/indus-gold-1024x788.png" alt="Indus Gold"><b>INDUS GOLD</b></article><article class="slab s3"><img src="https://polygraniteindia.com/wp-content/uploads/2022/11/image-011-scaled-e1670918151554-1024x642.jpg" alt="Opera Green"><b>OPERA GREEN</b></article></div></section>
+<section class="mega-gallery" id="visual-gallery"><div class="reveal"><div class="eyebrow">Visual Collection</div><h2 class="section-title">More Inspiration. More <span class="serif gold">Wow.</span></h2><p class="section-sub">A larger visual collection inspired by Polygranite India product and project ranges.</p></div><div class="mega-grid" id="mega-grid">
+<figure><img loading="lazy" src="https://polygraniteindia.com/wp-content/uploads/2022/11/Untitled-design-51.png" alt="Interior material collection 1"><figcaption>Modern Interior</figcaption></figure><figure><img loading="lazy" src="https://polygraniteindia.com/wp-content/uploads/2022/11/Untitled-design-50.png" alt="Interior material collection 2"><figcaption>Luxury Wall</figcaption></figure><figure><img loading="lazy" src="https://polygraniteindia.com/wp-content/uploads/2022/11/Untitled-design-49.png" alt="Interior material collection 3"><figcaption>Signature Finish</figcaption></figure><figure><img loading="lazy" src="https://polygraniteindia.com/wp-content/uploads/2022/11/Untitled-design-58-1024x791.png" alt="Interior material collection 4"><figcaption>Jade Black</figcaption></figure><figure><img loading="lazy" src="https://polygraniteindia.com/wp-content/uploads/2022/11/Untitled-design-54-1024x791.png" alt="Interior material collection 5"><figcaption>Jacobean Wood</figcaption></figure><figure><img loading="lazy" src="https://polygraniteindia.com/wp-content/uploads/2022/11/Untitled-design-56-1024x791.png" alt="Interior material collection 6"><figcaption>Colonial Maple</figcaption></figure><figure><img loading="lazy" src="https://polygraniteindia.com/wp-content/uploads/2022/11/Untitled-design-59-1024x791.png" alt="Interior material collection 7"><figcaption>Platinum Gray</figcaption></figure><figure><img loading="lazy" src="https://polygraniteindia.com/wp-content/uploads/2022/11/image-017-scaled-e1670918168238-1024x645.jpg" alt="Interior material collection 8"><figcaption>Imperial Blue</figcaption></figure><figure><img loading="lazy" src="https://polygraniteindia.com/wp-content/uploads/2022/11/17.jpeg" alt="Interior material collection 9"><figcaption>Premium Space</figcaption></figure><figure><img loading="lazy" src="https://polygraniteindia.com/wp-content/uploads/2022/12/pearl-white-1024x788.png" alt="Interior material collection 10"><figcaption>Pearl White</figcaption></figure><figure><img loading="lazy" src="https://polygraniteindia.com/wp-content/uploads/2022/12/indus-gold-1024x788.png" alt="Interior material collection 11"><figcaption>Indus Gold</figcaption></figure><figure><img loading="lazy" src="https://polygraniteindia.com/wp-content/uploads/2022/11/image-011-scaled-e1670918151554-1024x642.jpg" alt="Interior material collection 12"><figcaption>Opera Green</figcaption></figure></div></section>
+<script>document.addEventListener('mousemove',e=>{const st=document.getElementById('showcase-stage');if(!st)return;const r=st.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;document.querySelectorAll('.slab').forEach((el,i)=>{const base=i===0?'rotateY(28deg) rotateZ(-5deg)':i===1?'translateZ(80px)':'rotateY(-28deg) rotateZ(5deg)';el.style.transform=base+' translate3d('+x*(i===1?18:30)+'px,'+y*22+'px,0)'});});document.querySelectorAll('.tilt').forEach(card=>card.addEventListener('mousemove',e=>{let r=card.getBoundingClientRect(),x=(e.clientX-r.left)/r.width-.5,y=(e.clientY-r.top)/r.height-.5;card.style.transform='perspective(900px) rotateY('+x*12+'deg) rotateX('+-y*12+'deg) translateY(-8px)'}));document.querySelectorAll('.tilt').forEach(card=>card.addEventListener('mouseleave',()=>card.style.transform='')); </script></body>
 </html>
