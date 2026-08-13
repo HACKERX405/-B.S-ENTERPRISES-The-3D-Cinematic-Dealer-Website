@@ -162,7 +162,35 @@
   .ba-label.left{left:20px;}
   .ba-label.right{right:20px;color:var(--gold);}
 
-  /* ===== VIDEO SHOWCASE ===== */
+  /* ===== PRODUCT MODAL ===== */
+  .modal-overlay{position:fixed;inset:0;background:rgba(8,8,7,0.82);backdrop-filter:blur(6px);z-index:3000;display:none;align-items:center;justify-content:center;padding:5vw;}
+  .modal-overlay.open{display:flex;}
+  .modal-box{background:var(--panel);border:1px solid var(--gold);max-width:820px;width:100%;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;position:relative;}
+  .modal-close{position:absolute;top:16px;right:16px;z-index:5;width:36px;height:36px;border-radius:50%;background:rgba(10,10,9,0.6);border:1px solid var(--line);color:var(--white);font-size:18px;cursor:none;display:flex;align-items:center;justify-content:center;}
+  .modal-img{height:100%;min-height:260px;overflow:hidden;}
+  .modal-img img{width:100%;height:100%;object-fit:cover;}
+  .modal-body{padding:40px 36px;display:flex;flex-direction:column;justify-content:center;}
+  .modal-body .eyebrow{margin-bottom:12px;}
+  .modal-body h3{font-size:26px;font-weight:600;margin-bottom:16px;}
+  .modal-body p{color:var(--muted);font-size:14.5px;line-height:1.8;margin-bottom:22px;}
+  .modal-swatches{display:flex;gap:10px;margin-bottom:26px;}
+  .modal-swatches .swatch{width:26px;height:26px;}
+  @media(max-width:680px){.modal-box{grid-template-columns:1fr;}.modal-img{min-height:200px;}}
+
+  /* ===== 3D TRUST MEDALLION ===== */
+  .medallion-wrap{perspective:700px;margin-top:22px;}
+  .medallion{width:74px;height:74px;position:relative;transform-style:preserve-3d;animation:medallionSpin 7s linear infinite;}
+  @keyframes medallionSpin{from{transform:rotateY(0deg);}to{transform:rotateY(360deg);}}
+  .medallion-face{position:absolute;inset:0;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-direction:column;backface-visibility:hidden;border:1px solid var(--gold);background:radial-gradient(circle at 35% 30%, rgba(201,168,76,0.28), rgba(20,18,15,0.9));}
+  .medallion-face i{color:var(--gold);font-size:20px;}
+  .medallion-face span{font-size:7px;letter-spacing:1px;text-transform:uppercase;color:var(--gold);margin-top:3px;}
+  .medallion-back{transform:rotateY(180deg);}
+
+  .icon-tile{display:flex;align-items:center;justify-content:center;background:linear-gradient(150deg,var(--tile-a,#333),var(--tile-b,#111));position:relative;overflow:hidden;}
+  .icon-tile::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.05) 1px,transparent 1px);background-size:22px 22px;}
+  .icon-tile i{font-size:56px;color:rgba(245,242,234,0.85);position:relative;z-index:2;filter:drop-shadow(0 8px 18px rgba(0,0,0,0.4));transition:transform .6s ease;}
+  .p-card:hover .icon-tile i{transform:scale(1.12) rotate(-4deg);}
+
   .video-section{background:var(--bg-alt);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
   .video-wrap{position:relative;max-width:980px;margin:56px auto 0;aspect-ratio:16/9;overflow:hidden;border:1px solid var(--line);background:#000;}
   .video-wrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
@@ -320,7 +348,7 @@
 
 <!-- ===== HERO ===== -->
 <section class="hero" id="home">
-  <div class="hero-bg"><img src="https://polygraniteindia.com/wp-content/uploads/2022/11/17.jpeg" alt="Premium interior finished with Polygranite panels" id="hero-img"></div>
+  <div class="hero-bg"><img src="https://polygraniteindia.com/wp-content/uploads/2022/11/17.jpeg" data-fallback="B.S+ENTERPRISES" alt="Premium interior finished with Polygranite panels" id="hero-img"></div>
   <div class="hero-grain"></div>
   <div class="hero-content">
     <div class="hero-left">
@@ -339,10 +367,30 @@
       <div class="num" data-target="15">0</div>
       <div class="lbl">Years Product Warranty</div>
       <div class="stars">★★★★★ 4.9/5</div>
+      <div class="medallion-wrap">
+        <div class="medallion">
+          <div class="medallion-face medallion-front"><i class="fa-solid fa-certificate"></i><span>Certified</span></div>
+          <div class="medallion-face medallion-back"><i class="fa-solid fa-award"></i><span>Authorized</span></div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="scroll-cue"><span>Scroll</span><div class="bar"></div></div>
 </section>
+
+<div class="modal-overlay" id="product-modal">
+  <div class="modal-box">
+    <button class="modal-close" id="modal-close">&times;</button>
+    <div class="modal-img"><img src="" alt="" id="modal-img"></div>
+    <div class="modal-body">
+      <div class="eyebrow" id="modal-eyebrow">Product Detail</div>
+      <h3 id="modal-title"></h3>
+      <p id="modal-desc"></p>
+      <div class="modal-swatches" id="modal-swatches"></div>
+      <a href="#contact" class="btn-outline magnetic" id="modal-enquire" style="align-self:flex-start;">Enquire Now</a>
+    </div>
+  </div>
+</div>
 
 <!-- ===== MARQUEE ===== -->
 <div class="ticker-wrap">
@@ -381,90 +429,90 @@
 
   <div class="tab-panel product-grid active" id="polygranite">
     <div class="p-card reveal tilt">
-      <div class="img-wrap"><img src="https://polygraniteindia.com/wp-content/uploads/2023/02/stack-of-sheets-2.png" alt="Polygranite granite-finish sheets stacked"></div>
-      <div class="p-body"><h4>Classic Granite Finish</h4><p>The signature Polygranite look — stone texture, zero maintenance.</p></div>
-      <div class="p-overlay"><h4>Classic Granite Finish</h4><p>Scratch, heat & stain resistant sheets that mimic natural granite for walls, counters and cladding — a fraction of the weight and cost.</p>
-        <div class="swatches"><span class="swatch" style="background:#2b2b2b"></span><span class="swatch" style="background:#8a6a2f"></span><span class="swatch" style="background:#c9a84c"></span><span class="swatch" style="background:#4a4a4a"></span></div>
+      <div class="img-wrap"><img src="https://polygraniteindia.com/wp-content/uploads/2022/12/pearl-white-1024x788.png" data-fallback="Pearl+White" alt="Pearl White Polygranite sheet"></div>
+      <div class="p-body"><h4>Pearl White</h4><p>A soft pearl-white granite finish for bright, airy interiors.</p></div>
+      <div class="p-overlay"><h4>Pearl White</h4><p>Scratch, heat & stain resistant sheets that mimic natural granite for walls, counters and cladding — a fraction of the weight and cost.</p>
+        <div class="swatches"><span class="swatch" style="background:#e8e3d8"></span><span class="swatch" style="background:#c9a84c"></span></div>
         <button class="view-btn">View Details</button></div>
     </div>
     <div class="p-card reveal tilt">
-      <div class="img-wrap"><img src="https://polygraniteindia.com/wp-content/uploads/elementor/thumbs/Untitled-design-50-py8k4ev7jj8go9qsbvc0c3ezsxxaensxz62so1mra8.png" alt="Polygranite sheet lobby installation"></div>
-      <div class="p-body"><h4>Onyx Marble Series</h4><p>Deep veined tones for statement feature walls.</p></div>
-      <div class="p-overlay"><h4>Onyx Marble Series</h4><p>Fine marbled veining printed under a UV-protected surface layer — ideal for lobbies, TV units and false ceilings.</p>
-        <div class="swatches"><span class="swatch" style="background:#1a1a1a"></span><span class="swatch" style="background:#3d3d3d"></span><span class="swatch" style="background:#c9a84c"></span></div>
+      <div class="img-wrap"><img src="https://polygraniteindia.com/wp-content/uploads/2022/12/indus-gold-1024x788.png" data-fallback="Indus+Gold" alt="Indus Gold Polygranite sheet"></div>
+      <div class="p-body"><h4>Indus Gold</h4><p>Warm golden-beige veining for a luxury interior.</p></div>
+      <div class="p-overlay"><h4>Indus Gold</h4><p>Fine golden veining printed under a UV-protected surface layer — ideal for lobbies, TV units and false ceilings.</p>
+        <div class="swatches"><span class="swatch" style="background:#a4824a"></span><span class="swatch" style="background:#c9a84c"></span></div>
         <button class="view-btn">View Details</button></div>
     </div>
     <div class="p-card reveal tilt">
-      <div class="img-wrap"><img src="https://polygraniteindia.com/wp-content/uploads/2022/11/Untitled-design-48.png" alt="Polygranite feature wall in living space"></div>
-      <div class="p-body"><h4>Royal Sandstone</h4><p>Warm earthy tones for a luxury interior.</p></div>
-      <div class="p-overlay"><h4>Royal Sandstone</h4><p>Sand-textured finish with subtle depth — pairs well with warm lighting for hotel and residential lobbies.</p>
-        <div class="swatches"><span class="swatch" style="background:#a4824a"></span><span class="swatch" style="background:#8a6a2f"></span><span class="swatch" style="background:#5a4626"></span></div>
+      <div class="img-wrap"><img src="https://polygraniteindia.com/wp-content/uploads/2022/11/image-011-scaled-e1670918151554-1024x642.jpg" data-fallback="Opera+Green" alt="Opera Green Polygranite sheet"></div>
+      <div class="p-body"><h4>Opera Green</h4><p>Rich emerald tones for a bold statement wall.</p></div>
+      <div class="p-overlay"><h4>Opera Green</h4><p>Deep green marbled texture with subtle depth — pairs well with warm brass fittings and dark wood furniture.</p>
+        <div class="swatches"><span class="swatch" style="background:#2e4a3a"></span><span class="swatch" style="background:#1a1a1a"></span></div>
         <button class="view-btn">View Details</button></div>
     </div>
     <div class="p-card reveal tilt">
-      <div class="img-wrap"><img src="https://placehold.co/800x600/1a1a1a/c9a84c?text=B.S+ENTERPRISES" alt="Polygranite matte black sheet"></div>
-      <div class="p-body"><h4>Matte Noir</h4><p>Solid matte black — bold and minimal.</p></div>
-      <div class="p-overlay"><h4>Matte Noir</h4><p>A flat, fingerprint-resistant matte black finish for modern facades and contemporary interiors.</p>
-        <div class="swatches"><span class="swatch" style="background:#111"></span></div>
+      <div class="img-wrap"><img src="https://polygraniteindia.com/wp-content/uploads/2022/11/image-017-scaled-e1670918168238-1024x645.jpg" data-fallback="Imperial+Blue" alt="Imperial Blue Polygranite sheet"></div>
+      <div class="p-body"><h4>Imperial Blue</h4><p>Deep navy granite look, striking and modern.</p></div>
+      <div class="p-overlay"><h4>Imperial Blue</h4><p>A bold navy-blue granite finish that adds drama to feature walls and commercial facades.</p>
+        <div class="swatches"><span class="swatch" style="background:#22364a"></span><span class="swatch" style="background:#111"></span></div>
         <button class="view-btn">View Details</button></div>
     </div>
   </div>
 
   <div class="tab-panel product-grid" id="wpc">
     <div class="p-card reveal tilt">
-      <div class="img-wrap"><img src="https://polygraniteindia.com/wp-content/uploads/2023/02/wallpaper-1.png" alt="WPC wood-grain panel"></div>
-      <div class="p-body"><h4>Teak Wood Grain</h4><p>Wood look, zero rot, zero termite worry.</p></div>
-      <div class="p-overlay"><h4>Teak Wood Grain</h4><p>Wood-Plastic Composite panels that resist moisture, mold and termites — the warmth of timber without the maintenance.</p>
-        <div class="swatches"><span class="swatch" style="background:#6b4a2b"></span><span class="swatch" style="background:#8a6a2f"></span><span class="swatch" style="background:#c9a84c"></span></div>
+      <div class="img-wrap"><img src="https://polygraniteindia.com/wp-content/uploads/2022/11/Untitled-design-58-1024x791.png" data-fallback="Jade+Black" alt="Jade Black WPC panel"></div>
+      <div class="p-body"><h4>Jade Black</h4><p>Bold matte black slats for contemporary spaces.</p></div>
+      <div class="p-overlay"><h4>Jade Black</h4><p>Wood-Plastic Composite panels that resist moisture, mold and termites — a sleek matte black finish that's easy to wipe clean.</p>
+        <div class="swatches"><span class="swatch" style="background:#111"></span><span class="swatch" style="background:#333"></span></div>
         <button class="view-btn">View Details</button></div>
     </div>
     <div class="p-card reveal tilt">
-      <div class="img-wrap"><img src="https://polygraniteindia.com/wp-content/uploads/2023/02/wallpaper.png" alt="WPC louvre panel"></div>
-      <div class="p-body"><h4>Louvre Fluted Panel</h4><p>Vertical fluted texture for depth & shadow play.</p></div>
-      <div class="p-overlay"><h4>Louvre Fluted Panel</h4><p>Slatted fluted panels that add architectural rhythm to feature walls and partitions — indoor or covered outdoor use.</p>
-        <div class="swatches"><span class="swatch" style="background:#3d3d3d"></span><span class="swatch" style="background:#8a6a2f"></span></div>
+      <div class="img-wrap"><img src="https://polygraniteindia.com/wp-content/uploads/2022/11/Untitled-design-54-1024x791.png" data-fallback="Jacobean+Wood" alt="Jacobean Wood WPC panel"></div>
+      <div class="p-body"><h4>Jacobean Wood</h4><p>Rich dark wood grain, zero rot, zero termite worry.</p></div>
+      <div class="p-overlay"><h4>Jacobean Wood</h4><p>A deep wood-grain WPC finish that brings warmth to feature walls without any of the maintenance real timber needs.</p>
+        <div class="swatches"><span class="swatch" style="background:#4a3320"></span><span class="swatch" style="background:#6b4a2b"></span></div>
         <button class="view-btn">View Details</button></div>
     </div>
     <div class="p-card reveal tilt">
-      <div class="img-wrap"><img src="https://polygraniteindia.com/wp-content/uploads/2023/11/charcoal-louvers.png" alt="Charcoal WPC louvre panel"></div>
-      <div class="p-body"><h4>Charcoal Louvers</h4><p>Bold dark slats for contemporary spaces.</p></div>
-      <div class="p-overlay"><h4>Charcoal Louvers</h4><p>A sleek charcoal finish that brings sophistication to homes and offices, easy to wipe clean.</p>
-        <div class="swatches"><span class="swatch" style="background:#1c1c1c"></span><span class="swatch" style="background:#333"></span></div>
-        <button class="view-btn">View Details</button></div>
-    </div>
-    <div class="p-card reveal tilt">
-      <div class="img-wrap"><img src="https://placehold.co/800x600/1a1a1a/c9a84c?text=B.S+ENTERPRISES" alt="WPC natural oak panel"></div>
-      <div class="p-body"><h4>Natural Oak</h4><p>Light tones for airy, minimalist interiors.</p></div>
-      <div class="p-overlay"><h4>Natural Oak</h4><p>Soft light-oak texture that keeps rooms feeling bright, paired with WPC's full moisture resistance.</p>
+      <div class="img-wrap"><img src="https://polygraniteindia.com/wp-content/uploads/2022/11/Untitled-design-56-1024x791.png" data-fallback="Colonial+Maple" alt="Colonial Maple WPC panel"></div>
+      <div class="p-body"><h4>Colonial Maple</h4><p>Light honey-toned wood look for airy interiors.</p></div>
+      <div class="p-overlay"><h4>Colonial Maple</h4><p>A soft maple-toned WPC panel that keeps rooms feeling bright, paired with full moisture and termite resistance.</p>
         <div class="swatches"><span class="swatch" style="background:#d8bd8f"></span><span class="swatch" style="background:#c9a84c"></span></div>
+        <button class="view-btn">View Details</button></div>
+    </div>
+    <div class="p-card reveal tilt">
+      <div class="img-wrap"><img src="https://polygraniteindia.com/wp-content/uploads/2022/11/Untitled-design-59-1024x791.png" data-fallback="Platinum+Gray" alt="Platinum Gray WPC panel"></div>
+      <div class="p-body"><h4>Platinum Gray</h4><p>Cool industrial grey for modern commercial spaces.</p></div>
+      <div class="p-overlay"><h4>Platinum Gray</h4><p>A uniform grey WPC finish suited to offices, retail interiors and contemporary residential spaces alike.</p>
+        <div class="swatches"><span class="swatch" style="background:#6a6a6a"></span><span class="swatch" style="background:#3d3d3d"></span></div>
         <button class="view-btn">View Details</button></div>
     </div>
   </div>
 
   <div class="tab-panel product-grid" id="plywood">
     <div class="p-card reveal tilt">
-      <div class="img-wrap"><img src="https://placehold.co/800x600/1a1a1a/c9a84c?text=B.S+ENTERPRISES" alt="BWR grade plywood sheet"></div>
+      <div class="img-wrap"><img src="https://images.pexels.com/photos/168442/pexels-photo-168442.jpeg?auto=compress&cs=tinysrgb&w=800" data-fallback="BWR+Grade" alt="BWR grade plywood sheet"></div>
       <div class="p-body"><h4>BWR Grade</h4><p>Boiling Water Resistant — for kitchens & wet areas.</p></div>
       <div class="p-overlay"><h4>BWR Grade</h4><p>Boiling Water Resistant plywood built to withstand humidity and splashes — a dependable choice for kitchen and bathroom cabinetry.</p>
         <div class="swatches"><span class="swatch" style="background:#8a6a2f"></span></div>
         <button class="view-btn">View Details</button></div>
     </div>
     <div class="p-card reveal tilt">
-      <div class="img-wrap"><img src="https://placehold.co/800x600/1a1a1a/c9a84c?text=B.S+ENTERPRISES" alt="MR grade plywood sheet"></div>
+      <div class="img-wrap"><img src="https://images.pexels.com/photos/4744800/pexels-photo-4744800.jpeg?auto=compress&cs=tinysrgb&w=800" data-fallback="MR+Grade" alt="MR grade plywood sheet"></div>
       <div class="p-body"><h4>MR Grade</h4><p>Moisture Resistant — everyday interior furniture.</p></div>
       <div class="p-overlay"><h4>MR Grade</h4><p>Moisture Resistant plywood suited for wardrobes, shelving and general interior furniture at an economical price point.</p>
         <div class="swatches"><span class="swatch" style="background:#a4824a"></span></div>
         <button class="view-btn">View Details</button></div>
     </div>
     <div class="p-card reveal tilt">
-      <div class="img-wrap"><img src="https://placehold.co/800x600/1a1a1a/c9a84c?text=B.S+ENTERPRISES" alt="Marine grade plywood sheet"></div>
+      <div class="img-wrap"><img src="https://images.pexels.com/photos/12278586/pexels-photo-12278586.jpeg?auto=compress&cs=tinysrgb&w=800" data-fallback="Marine+Grade" alt="Marine grade plywood sheet"></div>
       <div class="p-body"><h4>Marine Grade</h4><p>Maximum durability for outdoor & structural use.</p></div>
       <div class="p-overlay"><h4>Marine Grade</h4><p>Fully waterproof, high-density plywood built for outdoor structures, boats and heavy structural applications.</p>
         <div class="swatches"><span class="swatch" style="background:#5a4626"></span></div>
         <button class="view-btn">View Details</button></div>
     </div>
     <div class="p-card reveal tilt">
-      <div class="img-wrap"><img src="https://placehold.co/800x600/1a1a1a/c9a84c?text=B.S+ENTERPRISES" alt="Flexible plywood sheet"></div>
+      <div class="img-wrap"><img src="https://images.pexels.com/photos/7479035/pexels-photo-7479035.jpeg?auto=compress&cs=tinysrgb&w=800" data-fallback="Flexible+Ply" alt="Flexible plywood sheet"></div>
       <div class="p-body"><h4>Flexible Ply</h4><p>Bends for curved furniture & false ceilings.</p></div>
       <div class="p-overlay"><h4>Flexible Ply</h4><p>Thin, pliable plywood that bends into curves — perfect for designer furniture and curved ceiling panels.</p>
         <div class="swatches"><span class="swatch" style="background:#c9a84c"></span></div>
@@ -474,28 +522,28 @@
 
   <div class="tab-panel product-grid" id="granite">
     <div class="p-card reveal tilt">
-      <div class="img-wrap"><img src="https://placehold.co/800x600/1a1a1a/c9a84c?text=B.S+ENTERPRISES" alt="Black galaxy granite sheet"></div>
+      <div class="img-wrap"><img src="https://images.pexels.com/photos/35690033/pexels-photo-35690033.jpeg?auto=compress&cs=tinysrgb&w=800" data-fallback="Black+Galaxy" alt="Black galaxy granite sheet"></div>
       <div class="p-body"><h4>Black Galaxy</h4><p>Deep black with golden fleck detailing.</p></div>
       <div class="p-overlay"><h4>Black Galaxy</h4><p>Polished natural granite with distinctive gold speckling — a premium choice for countertops and flooring.</p>
         <div class="swatches"><span class="swatch" style="background:#111"></span><span class="swatch" style="background:#c9a84c"></span></div>
         <button class="view-btn">View Details</button></div>
     </div>
     <div class="p-card reveal tilt">
-      <div class="img-wrap"><img src="https://placehold.co/800x600/1a1a1a/c9a84c?text=B.S+ENTERPRISES" alt="Kashmir white granite sheet"></div>
+      <div class="img-wrap"><img src="https://images.pexels.com/photos/4705819/pexels-photo-4705819.jpeg?auto=compress&cs=tinysrgb&w=800" data-fallback="Kashmir+White" alt="Kashmir white granite sheet"></div>
       <div class="p-body"><h4>Kashmir White</h4><p>Light base with soft grey & burgundy veins.</p></div>
       <div class="p-overlay"><h4>Kashmir White</h4><p>A bright, elegant granite ideal for kitchen tops and light-toned interiors that need a natural stone finish.</p>
         <div class="swatches"><span class="swatch" style="background:#e8e3d8"></span><span class="swatch" style="background:#8a6a2f"></span></div>
         <button class="view-btn">View Details</button></div>
     </div>
     <div class="p-card reveal tilt">
-      <div class="img-wrap"><img src="https://placehold.co/800x600/1a1a1a/c9a84c?text=B.S+ENTERPRISES" alt="Tan brown granite sheet"></div>
+      <div class="img-wrap"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Granite%20slab%20up%20close.jpg" data-fallback="Tan+Brown" alt="Tan brown granite sheet"></div>
       <div class="p-body"><h4>Tan Brown</h4><p>Rich brown with contrasting black grain.</p></div>
       <div class="p-overlay"><h4>Tan Brown</h4><p>A durable, richly patterned granite that performs equally well on flooring, stairs and countertops.</p>
         <div class="swatches"><span class="swatch" style="background:#5a4626"></span><span class="swatch" style="background:#1a1a1a"></span></div>
         <button class="view-btn">View Details</button></div>
     </div>
     <div class="p-card reveal tilt">
-      <div class="img-wrap"><img src="https://placehold.co/800x600/1a1a1a/c9a84c?text=B.S+ENTERPRISES" alt="Steel grey granite sheet"></div>
+      <div class="img-wrap"><img src="https://commons.wikimedia.org/wiki/Special:FilePath/Grey%20rough%20granite%20rock%20seamless%20stone%20surface%20texture.jpg" data-fallback="Steel+Grey" alt="Steel grey granite sheet"></div>
       <div class="p-body"><h4>Steel Grey</h4><p>Cool industrial tone, uniform texture.</p></div>
       <div class="p-overlay"><h4>Steel Grey</h4><p>A uniform grey granite that suits contemporary, industrial-inspired interiors and commercial spaces.</p>
         <div class="swatches"><span class="swatch" style="background:#4a4a4a"></span></div>
@@ -514,9 +562,9 @@
   <div class="ba-wrap reveal" id="ba-wrap">
     <span class="ba-label left">Plain Wall</span>
     <span class="ba-label right">Polygranite Finish</span>
-    <img class="ba-before" src="https://polygraniteindia.com/wp-content/uploads/2022/11/Untitled-design-49.png" alt="Plain wall before Polygranite installation">
+    <img class="ba-before" src="https://polygraniteindia.com/wp-content/uploads/2022/11/Untitled-design-49.png" data-fallback="Plain+Wall" alt="Plain wall before Polygranite installation">
     <div class="ba-after-wrap" id="ba-after-wrap">
-      <img src="https://polygraniteindia.com/wp-content/uploads/2022/11/Untitled-design-49.png" alt="Wall after Polygranite installation">
+      <img src="https://polygraniteindia.com/wp-content/uploads/2022/11/Untitled-design-49.png" data-fallback="Polygranite+Finish" alt="Wall after Polygranite installation">
     </div>
     <div class="ba-handle" id="ba-handle"></div>
   </div>
@@ -542,7 +590,7 @@
 <section class="section" id="about">
   <div class="about-wrap">
     <div class="about-img reveal" id="about-img-wrap">
-      <img src="https://polygraniteindia.com/wp-content/uploads/2022/11/single-img3.png" alt="B.S Enterprises interior showroom" id="about-img">
+      <img src="https://polygraniteindia.com/wp-content/uploads/2022/11/Untitled-design-51.png" data-fallback="B.S+ENTERPRISES" alt="B.S Enterprises interior showroom" id="about-img">
       <div class="badge-card"><i class="fa-solid fa-certificate"></i><strong>Authorized Dealer of Polygranite India</strong></div>
     </div>
     <div class="about-text reveal">
@@ -593,7 +641,7 @@
 
 <!-- ===== ACHIEVEMENTS (parallax) ===== -->
 <section class="achieve-section">
-  <div class="achieve-bg" id="achieve-bg"><img src="https://polygraniteindia.com/wp-content/uploads/elementor/thumbs/17-py8ju8a5i5amwcj9sgvibnx84o450pdmkrnfi4qaow.jpeg" alt="Restaurant interior finished with Polygranite panels"></div>
+  <div class="achieve-bg" id="achieve-bg"><img src="https://polygraniteindia.com/wp-content/uploads/2022/11/17.jpeg" data-fallback="Restaurant+Interior" alt="Restaurant interior finished with Polygranite panels"></div>
   <div class="achieve-grid reveal-stagger" id="achieve">
     <div class="achieve-card"><div class="achieve-num" data-target="480">0</div><p>Projects Done</p></div>
     <div class="achieve-card"><div class="achieve-num" data-target="1200">0</div><p>Happy Clients</p></div>
@@ -610,21 +658,21 @@
     <p class="section-sub">A glimpse into homes, offices and hospitality interiors finished with our Polygranite range.</p>
   </div>
   <div class="gallery-grid reveal-stagger" id="gallery-grid" style="margin-top:56px;">
-    <div class="g-item"><img src="https://polygraniteindia.com/wp-content/uploads/elementor/thumbs/Untitled-design-51-py8ke4j65wj4n7mvm2h83n6gsa1ty2d3b8rf6z8azk.png" alt="Modern kitchen interior project"><div class="g-overlay"><span>Modern Kitchen</span></div></div>
-    <div class="g-item"><img src="https://polygraniteindia.com/wp-content/uploads/elementor/thumbs/14-py8juc1i9hfs6sdt6ii0lmz2i7llvhsjxa9df8kq00.jpeg" alt="Office interior project"><div class="g-overlay"><span>Office Interior</span></div></div>
-    <div class="g-item"><img src="https://polygraniteindia.com/wp-content/uploads/elementor/thumbs/17-py8ju8a5i5amwcj9sgvibnx84o450pdmkrnfi4qaow.jpeg" alt="Restaurant interior project"><div class="g-overlay"><span>Restaurant Interior</span></div></div>
-    <div class="g-item"><img src="https://polygraniteindia.com/wp-content/uploads/elementor/thumbs/44-py8jua5tvtd7jkgjhhorgng5bfuvg3l390yegonicg.jpeg" alt="Home interior project"><div class="g-overlay"><span>Home Interior</span></div></div>
-    <div class="g-item"><img src="https://polygraniteindia.com/wp-content/uploads/elementor/thumbs/Untitled-design-50-py8k4ev7jj8go9qsbvc0c3ezsxxaensxz62so1mra8.png" alt="Modern lobby project"><div class="g-overlay"><span>Modern Lobby</span></div></div>
-    <div class="g-item"><img src="https://polygraniteindia.com/wp-content/uploads/elementor/thumbs/16-py8ju6eh4h8294m03g296oeaxwdelb65wicgjkt31c.jpeg" alt="Wall decoration project"><div class="g-overlay"><span>Wall Decoration</span></div></div>
-    <div class="g-item"><img src="https://polygraniteindia.com/wp-content/uploads/2023/11/kiku2.jpg" alt="Commercial interior project"><div class="g-overlay"><span>Commercial Fit-out</span></div></div>
-    <div class="g-item"><img src="https://polygraniteindia.com/wp-content/uploads/2022/11/7-768x768.jpeg" alt="Hotel interior project"><div class="g-overlay"><span>Hotel Interior</span></div></div>
+    <div class="g-item"><img src="https://polygraniteindia.com/wp-content/uploads/2022/11/Untitled-design-51.png" data-fallback="Modern+Kitchen" alt="Modern kitchen interior project"><div class="g-overlay"><span>Modern Kitchen</span></div></div>
+    <div class="g-item"><img src="https://polygraniteindia.com/wp-content/uploads/2022/11/7-768x768.jpeg" data-fallback="Office+Interior" alt="Office interior project"><div class="g-overlay"><span>Office Interior</span></div></div>
+    <div class="g-item"><img src="https://polygraniteindia.com/wp-content/uploads/2022/11/17.jpeg" data-fallback="Restaurant+Interior" alt="Restaurant interior project"><div class="g-overlay"><span>Restaurant Interior</span></div></div>
+    <div class="g-item"><img src="https://polygraniteindia.com/wp-content/uploads/2022/11/Untitled-design-48.png" data-fallback="Home+Interior" alt="Home interior project"><div class="g-overlay"><span>Home Interior</span></div></div>
+    <div class="g-item"><img src="https://polygraniteindia.com/wp-content/uploads/2022/11/Untitled-design-50.png" data-fallback="Modern+Lobby" alt="Modern lobby project"><div class="g-overlay"><span>Modern Lobby</span></div></div>
+    <div class="g-item"><img src="https://polygraniteindia.com/wp-content/uploads/2023/02/stack-of-sheets-2.png" data-fallback="Wall+Decoration" alt="Wall decoration project"><div class="g-overlay"><span>Wall Decoration</span></div></div>
+    <div class="g-item"><img src="https://polygraniteindia.com/wp-content/uploads/2023/11/kiku2.jpg" data-fallback="Commercial+Fit-out" alt="Commercial interior project"><div class="g-overlay"><span>Commercial Fit-out</span></div></div>
+    <div class="g-item"><img src="https://polygraniteindia.com/wp-content/uploads/2022/11/7-768x768.jpeg" data-fallback="Hotel+Interior" alt="Hotel interior project"><div class="g-overlay"><span>Hotel Interior</span></div></div>
   </div>
 </section>
 <div class="lightbox" id="lightbox"><button class="lightbox-close" id="lightbox-close">&times;</button><img src="" alt="Enlarged project view" id="lightbox-img"></div>
 
 <!-- ===== TESTIMONIALS ===== -->
 <section class="section test-section" id="testimonials">
-  <div class="test-bg"><img src="https://polygraniteindia.com/wp-content/uploads/2022/11/Untitled-design-46.png" alt="Interior background"></div>
+  <div class="test-bg"><img src="https://polygraniteindia.com/wp-content/uploads/2022/11/Untitled-design-46.png" data-fallback="B.S+ENTERPRISES" alt="Interior background"></div>
   <div class="test-wrap reveal">
     <div class="test-slide active">
       <div class="stars">★★★★★</div>
@@ -668,12 +716,12 @@
     <div class="footer-col footer-contact">
       <h5>Get in Touch</h5>
       <ul>
-        <li><i class="fa-solid fa-location-dot"></i>Main Road, Berhampur, Odisha 760001, India</li>
+        <li><i class="fa-solid fa-location-dot"></i>Q52Q+334, Rajnagar - Jugsalai Rd, Jamshedpur, Jharkhand 831002</li>
         <li><i class="fa-brands fa-whatsapp"></i>+91 90313 80092</li>
         <li><i class="fa-brands fa-whatsapp"></i>+91 79030 61485</li>
         <li><i class="fa-solid fa-envelope"></i>info@bsenterprises.example</li>
       </ul>
-      <div class="map-embed"><iframe src="https://maps.google.com/maps?q=Berhampur%2C%20Odisha&t=m&z=11&output=embed" loading="lazy" title="Store location map"></iframe></div>
+      <div class="map-embed"><iframe src="https://maps.google.com/maps?q=Q52Q%2B334%2C%20Rajnagar%20-%20Jugsalai%20Rd%2C%20Jamshedpur%2C%20Jharkhand%20831002&t=m&z=16&output=embed" loading="lazy" title="Store location map"></iframe></div>
     </div>
   </div>
   <div class="footer-bottom">
@@ -697,6 +745,17 @@
 
 <script>
 gsap.registerPlugin(ScrollTrigger);
+
+/* ===== Image fallback safety net ===== */
+document.querySelectorAll('img[data-fallback]').forEach(img=>{
+  img.addEventListener('error', function(){
+    if(this.dataset.fallbackApplied) return;
+    this.dataset.fallbackApplied = '1';
+    const w = this.closest('.hero-bg') ? 1600 : (this.closest('.g-item') ? 700 : (this.closest('.about-img') ? 900 : 800));
+    const h = this.closest('.hero-bg') ? 1000 : (this.closest('.g-item') ? 900 : (this.closest('.about-img') ? 1100 : 600));
+    this.src = `https://placehold.co/${w}x${h}/1a1a1a/c9a84c?text=${this.dataset.fallback}`;
+  }, { once:false });
+});
 
 /* ===== Preloader ===== */
 const plFill = document.getElementById('pl-fill');
@@ -846,6 +905,33 @@ baWrap.addEventListener('touchmove', e=>setBA(e.touches[0].clientX));
 ScrollTrigger.create({ trigger:'#ba-wrap', start:'top 80%', once:true, onEnter:()=>{
   gsap.fromTo(baAfter,{width:'2%'},{width:'62%',duration:1.6,ease:'power2.inOut',onUpdate:function(){ baHandle.style.left = baAfter.style.width; } });
 }});
+
+/* ===== Product details modal ===== */
+const modal = document.getElementById('product-modal');
+const modalImg = document.getElementById('modal-img');
+const modalTitle = document.getElementById('modal-title');
+const modalDesc = document.getElementById('modal-desc');
+const modalSwatches = document.getElementById('modal-swatches');
+const modalEnquire = document.getElementById('modal-enquire');
+document.querySelectorAll('.view-btn').forEach(btn=>{
+  btn.addEventListener('click', (e)=>{
+    e.preventDefault();
+    const card = btn.closest('.p-card');
+    const img = card.querySelector('.img-wrap img');
+    const title = card.querySelector('.p-overlay h4').textContent;
+    const desc = card.querySelector('.p-overlay p').textContent;
+    const swatches = card.querySelector('.p-overlay .swatches').innerHTML;
+    modalImg.src = img.src; modalImg.alt = img.alt;
+    modalTitle.textContent = title;
+    modalDesc.textContent = desc;
+    modalSwatches.innerHTML = swatches;
+    modalEnquire.href = '#contact';
+    modal.classList.add('open');
+  });
+});
+document.getElementById('modal-close').addEventListener('click', ()=>modal.classList.remove('open'));
+modal.addEventListener('click', e=>{ if(e.target===modal) modal.classList.remove('open'); });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') modal.classList.remove('open'); });
 
 /* ===== WhatsApp popup toggle ===== */
 const waToggle = document.getElementById('wa-toggle');
