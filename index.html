@@ -293,15 +293,6 @@
   .step p{color:var(--muted);font-size:14.5px;line-height:1.75;}
 
   /* ===== ACHIEVEMENTS (parallax bg) ===== */
-  .achieve-section{position:relative;overflow:hidden;padding:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
-  .achieve-bg{position:absolute;inset:0;z-index:0;}
-  .achieve-bg img{width:100%;height:130%;object-fit:cover;filter:brightness(.28) saturate(1.1);}
-  .achieve-grid{position:relative;z-index:2;display:grid;grid-template-columns:repeat(4,1fr);}
-  .achieve-card{padding:80px 20px;text-align:center;border-right:1px solid var(--line);}
-  .achieve-card:last-child{border-right:none;}
-  .achieve-num{font-family:'Poppins';font-size:56px;font-weight:700;color:var(--gold);line-height:1;}
-  .achieve-card p{margin-top:12px;font-size:12.5px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
-
   /* ===== GALLERY ===== */
   .gallery-grid{columns:4 260px;column-gap:20px;}
   .g-item{break-inside:avoid;margin-bottom:20px;overflow:hidden;position:relative;border:1px solid var(--line);}
@@ -315,20 +306,6 @@
   .lightbox img{max-width:90vw;max-height:85vh;border:1px solid var(--gold);}
   .lightbox-close{position:absolute;top:30px;right:5vw;font-size:26px;color:var(--white);cursor:none;background:none;border:none;}
 
-  /* ===== TESTIMONIALS ===== */
-  .test-section{position:relative;overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
-  .test-bg{position:absolute;inset:0;opacity:.14;}
-  .test-bg img{width:100%;height:100%;object-fit:cover;filter:blur(2px);}
-  .test-wrap{position:relative;z-index:2;max-width:760px;margin:0 auto;text-align:center;}
-  .test-slide{display:none;}
-  .test-slide.active{display:block;}
-  .stars{color:var(--gold);font-size:15px;margin-bottom:24px;letter-spacing:4px;}
-  .test-slide p{font-size:clamp(19px,2.5vw,28px);font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;line-height:1.6;color:#efe9dc;}
-  .test-author{margin-top:30px;font-size:13px;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
-  .test-author strong{color:var(--gold);}
-  .test-dots{display:flex;justify-content:center;gap:10px;margin-top:44px;}
-  .test-dots button{width:8px;height:8px;border-radius:50%;border:1px solid var(--gold);background:none;cursor:none;padding:0;}
-  .test-dots button.active{background:var(--gold);}
 
   /* ===== ENQUIRY FORM ===== */
   .enquiry-section{background:var(--bg-alt);border-top:1px solid var(--line);border-bottom:1px solid var(--line);}
@@ -383,8 +360,6 @@
     .about-wrap{grid-template-columns:1fr;gap:44px;}
     .about-img{height:420px;}
     .footer-grid{grid-template-columns:1fr 1fr;}
-    .achieve-grid{grid-template-columns:repeat(2,1fr);}
-    .achieve-card{border-bottom:1px solid var(--line);}
     .hero-content{align-items:flex-start;flex-direction:column;}
   }
   @media(max-width:780px){
@@ -399,7 +374,6 @@
     .steps{grid-template-columns:1fr;gap:50px;}
     .steps-line{display:none;}
     .footer-grid{grid-template-columns:1fr;}
-    .achieve-grid{grid-template-columns:1fr 1fr;}
     .gallery-grid{columns:2 200px;}
     .about-list{grid-template-columns:1fr;}
     button, a{cursor:pointer;}
@@ -775,16 +749,6 @@
   </div>
 </section>
 
-<!-- ===== ACHIEVEMENTS (parallax) ===== -->
-<section class="achieve-section">
-  <div class="achieve-bg" id="achieve-bg"><img src="https://polygraniteindia.com/wp-content/uploads/2022/11/17.jpeg" data-fallback="Restaurant+Interior" alt="Restaurant interior finished with Polygranite panels"></div>
-  <div class="achieve-grid reveal-stagger" id="achieve">
-    <div class="achieve-card"><div class="achieve-num" data-target="480">0</div><p>Projects Done</p></div>
-    <div class="achieve-card"><div class="achieve-num" data-target="1200">0</div><p>Happy Clients</p></div>
-    <div class="achieve-card"><div class="achieve-num" data-target="18">0</div><p>Expert Team</p></div>
-    <div class="achieve-card"><div class="achieve-num" data-target="9">0</div><p>Awards Won</p></div>
-  </div>
-</section>
 
 <!-- ===== GALLERY ===== -->
 <section class="section" id="gallery">
@@ -806,31 +770,9 @@
 </section>
 <div class="lightbox" id="lightbox"><button class="lightbox-close" id="lightbox-close">&times;</button><img src="" alt="Enlarged project view" id="lightbox-img"></div>
 
-<!-- ===== TESTIMONIALS ===== -->
-<section class="section test-section" id="testimonials">
-  <div class="test-bg"><img src="https://polygraniteindia.com/wp-content/uploads/2022/11/Untitled-design-46.png" data-fallback="B.S+ENTERPRISES" alt="Interior background"></div>
-  <div class="test-wrap reveal">
-    <div class="test-slide active">
-      <div class="stars">★★★★★</div>
-      <p>"B.S Enterprises helped us pick the right Polygranite finish for our restaurant and the installation crew was spotless. Zero maintenance, three years on."</p>
-      <div class="test-author"><strong>Rakesh Mehta</strong> — Restaurant Owner</div>
-    </div>
-    <div class="test-slide">
-      <div class="stars">★★★★★</div>
-      <p>"The WPC louvre panels transformed our living room. Genuine stock, fair dealership pricing, and honest advice — exactly what we needed."</p>
-      <div class="test-author"><strong>Ananya Sen</strong> — Homeowner</div>
-    </div>
-    <div class="test-slide">
-      <div class="stars">★★★★★</div>
-      <p>"We source plywood and granite for every project through B.S Enterprises now. Consistent grade quality and on-time delivery, every single time."</p>
-      <div class="test-author"><strong>Vikram Rao</strong> — Interior Contractor</div>
-    </div>
-    <div class="test-dots" id="test-dots"><button class="active" data-i="0"></button><button data-i="1"></button><button data-i="2"></button></div>
-  </div>
-</section>
-
 <!-- ===== ENQUIRY FORM ===== -->
 <section class="section enquiry-section">
+
   <div class="reveal" style="text-align:center;">
     <div class="eyebrow" style="justify-content:center;"><span></span>Get a Quote</div>
     <h2 class="section-title" style="margin:0 auto;">Tell Us What You're <span class="serif gold">Building</span></h2>
@@ -1015,7 +957,7 @@ gsap.utils.toArray('.reveal-stagger').forEach(group=>{
 });
 
 /* ===== Hero stat counter ===== */
-document.querySelectorAll('.hero-stat-card .num, .achieve-num').forEach(el=>{
+document.querySelectorAll('.hero-stat-card .num').forEach(el=>{
   ScrollTrigger.create({
     trigger: el, start:'top 90%', once:true,
     onEnter:()=>{
@@ -1032,7 +974,6 @@ ScrollTrigger.create({ trigger:'#steps', start:'top 75%', once:true, onEnter:()=
 
 /* ===== Parallax bg images ===== */
 gsap.to('#hero-img',{yPercent:14,ease:'none',scrollTrigger:{trigger:'.hero',start:'top top',end:'bottom top',scrub:true}});
-gsap.to('#achieve-bg img',{yPercent:-16,ease:'none',scrollTrigger:{trigger:'.achieve-section',start:'top bottom',end:'bottom top',scrub:true}});
 gsap.to('#about-img',{yPercent:-8,ease:'none',scrollTrigger:{trigger:'#about-img-wrap',start:'top bottom',end:'bottom top',scrub:true}});
 
 /* ===== Product tabs ===== */
@@ -1140,14 +1081,6 @@ document.querySelectorAll('.g-item img').forEach(img=>{
 });
 document.getElementById('lightbox-close').addEventListener('click', ()=>lightbox.classList.remove('open'));
 lightbox.addEventListener('click', e=>{ if(e.target===lightbox) lightbox.classList.remove('open'); });
-
-/* ===== Testimonials carousel ===== */
-const slides = document.querySelectorAll('.test-slide');
-const dots = document.querySelectorAll('#test-dots button');
-let testIndex = 0;
-function showTest(i){ slides.forEach(s=>s.classList.remove('active')); dots.forEach(d=>d.classList.remove('active')); slides[i].classList.add('active'); dots[i].classList.add('active'); testIndex=i; }
-dots.forEach(d=>d.addEventListener('click', ()=>showTest(+d.dataset.i)));
-setInterval(()=>showTest((testIndex+1)%slides.length), 5500);
 </script>
 </body>
 </html>
