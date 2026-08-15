@@ -13,70 +13,80 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script type="module">
-  // ===================================================================
-  // FIREBASE SETUP — replace the config below with YOUR OWN project's
-  // config from Firebase Console > Project Settings > General > Your apps.
-  // See the setup guide the chat gave you for step-by-step instructions.
-  // ===================================================================
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-  import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+  document.addEventListener("DOMContentLoaded", () => {
 
-  const firebaseConfig = {
-    apiKey: "AIzaSyCDsDDgV_s6e2T7tnb2PviIBMcZcGmj3N4",
-    authDomain: "bs-enterprises-8e063.firebaseapp.com",
-    projectId: "bs-enterprises-8e063",
-    storageBucket: "bs-enterprises-8e063.firebasestorage.app",
-    messagingSenderId: "575525120081",
-    appId: "1:575525120081:web:9187b970a0d2d8257f3070",
-    measurementId: "G-8GSTK7H42G"
-  };
-
-  let db = null;
-  try {
-    const app = initializeApp(firebaseConfig);
-    db = getFirestore(app);
-  } catch (e) {
-    console.warn("Firebase not configured yet:", e);
-  }
+  // ===================================================================
+  // SIMPLE FORM BACKEND — FORMSPREE
+  // No Firebase / Firestore / Node.js / database setup needed.
+  //
+  // IMPORTANT: Create a free Formspree form and replace YOUR_FORM_ID
+  // below with your Formspree endpoint ID.
+  // Example: https://formspree.io/f/abcdwxyz
+  // ===================================================================
+  const FORMSPREE_ENDPOINT = "https://formspree.io/f/meajlqol";
 
   const form = document.getElementById('enquiry-form');
   const statusBox = document.getElementById('eq-status');
   const submitBtn = document.getElementById('eq-submit-btn');
 
-  form.addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const name = document.getElementById('eq-name').value.trim();
-    const phone = document.getElementById('eq-phone').value.trim();
-    const product = document.getElementById('eq-product').value;
-    const message = document.getElementById('eq-message').value.trim();
+  if (form) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
 
-    if (!name || !phone) {
-      statusBox.textContent = "Please fill in your name and phone number.";
-      statusBox.className = "enquiry-status show err";
-      return;
-    }
+      const name = document.getElementById('eq-name').value.trim();
+      const phone = document.getElementById('eq-phone').value.trim();
+      const product = document.getElementById('eq-product').value;
+      const message = document.getElementById('eq-message').value.trim();
 
-    submitBtn.disabled = true;
-    submitBtn.textContent = "Sending...";
+      if (!name || !phone) {
+        statusBox.textContent = "Please fill in your name and phone number.";
+        statusBox.className = "enquiry-status show err";
+        return;
+      }
 
-    try {
-      if (!db) throw new Error("Firebase config missing — add your keys in the script tag.");
-      await addDoc(collection(db, "enquiries"), {
-        name, phone, product, message,
-        createdAt: serverTimestamp(),
-        source: "bs-enterprises-website"
-      });
-      statusBox.textContent = "Thank you! We've received your enquiry and will reach out soon.";
-      statusBox.className = "enquiry-status show ok";
-      form.reset();
-    } catch (err) {
-      console.error(err);
-      statusBox.textContent = "Couldn't send right now — please WhatsApp us directly using the button in the corner.";
-      statusBox.className = "enquiry-status show err";
-    } finally {
-      submitBtn.disabled = false;
-      submitBtn.textContent = "Send Enquiry";
-    }
+      if (FORMSPREE_ENDPOINT.includes('YOUR_FORM_ID')) {
+        statusBox.textContent = "Form backend is not connected yet. Add your Formspree Form ID in the code.";
+        statusBox.className = "enquiry-status show err";
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Sending...";
+      statusBox.className = "enquiry-status";
+
+      try {
+        const response = await fetch(FORMSPREE_ENDPOINT, {
+          method: "POST",
+          headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify({
+            name,
+            phone,
+            product,
+            message,
+            source: "B.S ENTERPRISES Website",
+            enquiry_type: "Book a Store Visit"
+          })
+        });
+
+        if (!response.ok) throw new Error("Form submission failed");
+
+        statusBox.textContent = "Thank you! We've received your enquiry and will contact you soon.";
+        statusBox.className = "enquiry-status show ok";
+        form.reset();
+      } catch (err) {
+        console.error(err);
+        statusBox.textContent = "Couldn't send right now — please WhatsApp us directly using the button in the corner.";
+        statusBox.className = "enquiry-status show err";
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Send Enquiry";
+      }
+    });
+  }
+
   });
 </script>
 <style>
